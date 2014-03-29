@@ -56,7 +56,10 @@ netstatus.getStatus = function(timer){
 	}else if(netstatus.preStatus != "Green" && status == "Green"){
 		vincleCtrl.blinkChaos(100,10000);
 	}else if(netstatus.preStatus!="Blue" && status == "Blue"){
+	}else if(netstatus.preStatus!="Nashi" && status == "Nashi"){
+		vincleCtrl.stop();
 	}
+
 	netstatus.preStatus = status;
 	
 	
@@ -69,15 +72,19 @@ netstatus.stop = function(){
 
 
 $(window).load(function() {
-//    var timer;
-//    netstatus.timer = setInterval("netstatus.getStatus()",1000*1); 	
-
     $("#btnUpdate").on('click',function () {
       netstatus.getStatus(100);
     });
     $("#btnStop").on('click',function () {
     	netstatus.stop();
     });
+    $("#btnStartAutoUpdate").on('click',function () {
+    	netstatus.timer = setInterval("netstatus.getStatus()",1000*1); 	
+    });
+    $("#btnStopAutoUpdate").on('click',function () {
+    	clearInterval(netstatus.timer);
+    });
+
  });
 
 
